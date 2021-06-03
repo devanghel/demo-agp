@@ -23,8 +23,8 @@ public class JsonFileReader implements FileReader {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Value("${json.file.path}")
-    private String filePath;
+    @Value("${file.folder.path}")
+    private String fileFolder;
 
     @Override
     @SneakyThrows
@@ -32,7 +32,8 @@ public class JsonFileReader implements FileReader {
     // TODO: 03/06/2021 if you want to make it trully genereic think of a better naming
     public <T> List<T> readMultipleEntries() throws IOException {
         if (hasMultipleEntries()) {
-            return objectMapper.readValue(Paths.get(filePath).toFile(), List.class);
+            // TODO: 03/06/2021 implement login for .json type file parsing, and validation
+            return objectMapper.readValue(Paths.get(fileFolder).toFile(), List.class);
         } else {
             throw new ObjectTypeDidNotMatchException(ObjectType.MULTIPLE_ENTRIES);
         }
@@ -43,7 +44,7 @@ public class JsonFileReader implements FileReader {
     // TODO: 03/06/2021 think about using Object instead ot T
     public <T> T readSingleEntry() throws IOException {
         if (!hasMultipleEntries()) {
-            return (T) objectMapper.readValue(Paths.get(filePath).toFile(), Object.class);
+            return (T) objectMapper.readValue(Paths.get(fileFolder).toFile(), Object.class);
         } else {
             throw new ObjectTypeDidNotMatchException(ObjectType.SINGLE_ENTRY);
         }
@@ -51,6 +52,6 @@ public class JsonFileReader implements FileReader {
 
     @Override
     public boolean hasMultipleEntries() throws IOException {
-        return objectMapper.readTree(new File(filePath)).isArray();
+        return objectMapper.readTree(new File(fileFolder)).isArray();
     }
 }
