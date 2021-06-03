@@ -29,27 +29,28 @@ public class JsonFileReader implements FileReader {
     @Override
     @SneakyThrows
     // TODO: 03/06/2021 push exception message trough mqqt
-    public <T> List<T> readArray() throws IOException {
-        if (isArray()) {
+    // TODO: 03/06/2021 if you want to make it trully genereic think of a better naming
+    public <T> List<T> readMultipleEntries() throws IOException {
+        if (hasMultipleEntries()) {
             return objectMapper.readValue(Paths.get(filePath).toFile(), List.class);
         } else {
-            throw new ObjectTypeDidNotMatchException(ObjectType.OBJECT);
+            throw new ObjectTypeDidNotMatchException(ObjectType.MULTIPLE_ENTRIES);
         }
     }
 
     @Override
     @SneakyThrows
     // TODO: 03/06/2021 think about using Object instead ot T
-    public <T> T readObject() throws IOException {
-        if (!isArray()) {
+    public <T> T readSingleEntry() throws IOException {
+        if (!hasMultipleEntries()) {
             return (T) objectMapper.readValue(Paths.get(filePath).toFile(), Object.class);
         } else {
-            throw new ObjectTypeDidNotMatchException(ObjectType.OBJECT);
+            throw new ObjectTypeDidNotMatchException(ObjectType.SINGLE_ENTRY);
         }
     }
 
     @Override
-    public boolean isArray() throws IOException {
+    public boolean hasMultipleEntries() throws IOException {
         return objectMapper.readTree(new File(filePath)).isArray();
     }
 }
