@@ -9,7 +9,6 @@ import java.util.List;
 public class Bids{
     public List<Bid> bid;
 
-    @Builder
     @Getter
     class Bid {
         public String id;
