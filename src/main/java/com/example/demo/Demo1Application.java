@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Demo1Application {
 
     public static void main(String[] argsSpringApplication) {
-        SpringApplication.run(Demo1Application.class, argsSpringApplication).close();
+        SpringApplication.run(Demo1Application.class, argsSpringApplication);
     }
-
 }
