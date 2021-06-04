@@ -1,5 +1,6 @@
-package com.example.demo.conf.rabitmq;
+package com.example.demo.conf.rabitmq.routes.exception;
 
+import com.example.demo.model.bid.Bid;
 import com.example.demo.model.bid.Bids;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.http.base.HttpOperationFailedException;
@@ -70,7 +71,7 @@ public class ExceptionHandlingRoute extends RouteBuilder {
         @Override
         public void configure() {
 
-            Bids.Bid bid = Bids.Bid.builder()
+            Bid bid = Bid.builder()
                     .id("290092888459")
                     .ts("1992388288")
                     .ty("ZU")

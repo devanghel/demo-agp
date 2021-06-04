@@ -1,6 +1,6 @@
-package com.example.demo.conf.rabitmq.validation;
+package com.example.demo.conf.rabitmq.routes.validation;
 
-import com.example.demo.model.bid.Bids;
+import com.example.demo.model.bid.Bid;
 import org.apache.camel.builder.RouteBuilder;
 
 import java.util.List;
@@ -10,7 +10,7 @@ public class BeanValidationRoute extends RouteBuilder {
     @Override
     public void configure() {
 
-        Bids.Bid bid = Bids.Bid.builder()
+        Bid bid = Bid.builder()
                 .id("290092888459")
                 .ts("1992388288")
                 .ty("ZU")

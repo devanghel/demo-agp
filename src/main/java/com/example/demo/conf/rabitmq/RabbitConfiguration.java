@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitConfiguration {
+
     @Value("${rabbit.exchange.topic}")
     private String exchangeTopicName;
     @Value("${rabbit.queue.name}")
@@ -25,6 +26,7 @@ public class RabbitConfiguration {
     @Bean
     public ConnectionFactory rabbitConnectionFactory() {
         // TODO: 05/06/2021 maybe extend the connection factory for a builder implementation
+        // todo check if you need to provide, connection factory with beans, or it will discover it automatically
         ConnectionFactory connectionFactory = new ConnectionFactory();
         connectionFactory.setHost(host);
         connectionFactory.setPort(port);

@@ -1,4 +1,4 @@
-package com.example.demo.conf.rabitmq;
+package com.example.demo.conf.rabitmq.routes;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
