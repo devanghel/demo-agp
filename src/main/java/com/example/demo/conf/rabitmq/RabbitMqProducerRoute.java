@@ -1,7 +1,6 @@
-package com.georgedoestechstuff.camel.demo.rabbitmq;
+package com.example.demo.conf.rabitmq;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.springframework.stereotype.Component;
 
 public class RabbitMqProducerRoute extends RouteBuilder {
 

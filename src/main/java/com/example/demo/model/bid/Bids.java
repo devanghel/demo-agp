@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.model.bid;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -10,7 +10,8 @@ public class Bids{
     public List<Bid> bid;
 
     @Getter
-    class Bid {
+    @Builder
+    public class Bid {
         public String id;
         public String ts;
         public String ty;
