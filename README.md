@@ -3,7 +3,7 @@
 
 ## Table of contents
 * [Task](#task)
-* [High level specs](#High level specs)
+* [OtherSpecs](#OtherSpecs)
 * [Technologies](#technologies)
 * [Setup](#setup)
 * [Todo](#Todo)
@@ -19,7 +19,7 @@
 
 * Log the bid id(id), timestamp(ts), queue “name”( ty), and payload (decoded from Base64 pl) when the queueing is completed.
 
-## High level specs
+## OtherSpecs
 * Event-based reading from the stream  
 * Spawn a thread for each queue message  
 * Use logging library to log output to console
