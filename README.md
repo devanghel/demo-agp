@@ -42,5 +42,6 @@ $ ./install_prod.sh
 ```
 ## Todo
 * Unit/Integration Testing
-* Load Balancing
 * Continuous Integration and Delivery
+* Load Balancing
+* Kafka Broker Implementation and switch by env var

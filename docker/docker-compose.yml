@@ -2,8 +2,8 @@ version: "3.2"
 services:
   app:
     build:
-      context: ../
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: Task.Dockerfile
     environment:
       RABBIT_USER: guest
       RABBIT_PASS: user
