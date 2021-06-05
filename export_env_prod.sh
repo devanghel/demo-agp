@@ -1,5 +1,5 @@
+#!/bin/bash
 export spring_profiles_active=prod
-
 
 export IN_FOLDER_LOCATION=
 export ARC_FOLDER_LOCATION=
