@@ -1,15 +1,12 @@
-FROM maven:3.5-jdk-8 AS build
-RUN mkdir /usr/src/app/src
-RUN cp -R ../src /usr/src/app/src
-RUN cp ../pom.xml /usr/src/app/pom.xml
-RUN mvn -f /usr/src/app/pom.xml clean package
+FROM maven:3.6.0-jdk-11-slim AS build
+COPY src /usr/src/app/src
+COPY pom.xml /home/app
+RUN mvn -f /home/app/pom.xml clean package
 
-FROM gcr.io/distroless/java
-COPY --from=build ../target/demo1-0.0.1-SNAPSHOT.jar /usr/app/demo.jar
+#
+# Package stage
+#
+FROM openjdk:11-jre-slim
+COPY --from=build /home/app/target/demo-0.0.1-SNAPSHOT.jar /usr/local/lib/demo.jar
 EXPOSE 8080
-
-# todo add spring profile flag
-ENTRYPOINT ["java","-jar","/usr/app/demo.jar"]
-
-
-# Source https://stackoverflow.com/a/27768965
+ENTRYPOINT ["java","-jar","/usr/local/lib/demo.jar"]
