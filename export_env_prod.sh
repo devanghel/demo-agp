@@ -7,3 +7,5 @@ export RABBIT_HOST=
 export RABBIT_PORT=
 export RABBIT_USER=
 export RABBIT_PASS=
+export IN_FOLDER_UPDATE_TIME=
+export TLAS=

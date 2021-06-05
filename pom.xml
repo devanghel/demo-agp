@@ -76,6 +76,12 @@
             <artifactId>camel-rabbitmq</artifactId>
             <version>3.5.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>5.5.0</version>
+        </dependency>
     </dependencies>
 <!--todo remove unused dependencies-->
     <build>
