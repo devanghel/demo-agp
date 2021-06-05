@@ -6,6 +6,11 @@ RUN mvn -f /usr/src/app/pom.xml clean package
 FROM gcr.io/distroless/java
 COPY --from=build ../target/demo1-0.0.1-SNAPSHOT.jar /usr/app/demo.jar
 EXPOSE 8080
+
+COPY ../bash/export_env_dev.sh /usr/src/app
+RUN chmod 777 /usr/src/app/export_env_dev.sh
+RUN source ./usr/src/app/export_env_dev.sh
+
 # todo add spring profile flag
 ENTRYPOINT ["java","-jar","/usr/app/demo.jar"]
 
