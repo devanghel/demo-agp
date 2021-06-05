@@ -1,8 +1,9 @@
 version: "3.2"
 services:
   app:
-    image: task-app
-    container_name: 'task-app'
+    build:
+      context: .
+      dockerfile: Dockerfile
   rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: 'rabbitmq'
@@ -11,6 +12,5 @@ services:
 #      - 15672:15672
     volumes:
       - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
-    links:
-      - task-app
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmqfish
+      -

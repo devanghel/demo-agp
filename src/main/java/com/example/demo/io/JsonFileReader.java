@@ -35,7 +35,6 @@ public class JsonFileReader implements FileReader {
     private int ioThreadNum;
 
     private final ExecutorService fixedThreadPool = Executors.newFixedThreadPool(ioThreadNum);
-
     @Override
     @SneakyThrows
     public <T> Optional<List<Optional<T>>> readMultipleEntries() {
@@ -59,12 +58,6 @@ public class JsonFileReader implements FileReader {
         } else {
             throw new ObjectTypeDidNotMatchException(ObjectType.SINGLE_ENTRY);
         }
-    }
-
-    @SneakyThrows
-    private void kek() {
-        objectMapper.readValue(Paths.get(fileFolder).toFile(), List.class)
-                .forEach(this::sendMessageInANewThread);
     }
 
     private <T> void sendMessageInANewThread(T it) {
