@@ -1,7 +1,6 @@
 #!/bin/bash
 
-cd docker
-docker build -t task-app .
+docker build -t task-app docker/Dockerfile .
 docker-compose up
 
 
