@@ -17,6 +17,9 @@ public class RabbitMqProducerRoute extends RouteBuilder {
     @Value("${tlas}")
     private String tlas;
 
+    @Value("${drsap}")
+    private String drsap;
+
     private String body;
 
     public String getTlas() {
@@ -33,17 +36,14 @@ public class RabbitMqProducerRoute extends RouteBuilder {
 
     @Override
     public void configure() {
-
         from("timer:foo?period=" + fileUpdatePeriod)
                 .routeId("RabbitMqProducer")
-                .setBody().constant(getEncodedBody(body))
-                .log("Trying to send : ${body}")
-                .onCompletion().log("was sent succesefully")
-                .log("Message Sent!");
-
+                .setBody().constant(encrypt(body))
+                .onCompletion().log("was sent succesefully");
+                // TODO: 05/06/2021 add error and debug to the log only in debug mode, prod will go to kibana
     }
 
-    private String getToBeEncoded(String toBeEncoded) {
-        return Encryptors.text(toBeEncoded, tlas);
+    private String encrypt(String toBeEncrypted) {
+        return Encryptors.text(drsap, tlas).encrypt(toBeEncrypted);
     }
 }
