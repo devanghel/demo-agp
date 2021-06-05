@@ -27,7 +27,6 @@ public class RabbitConfiguration {
 
     @Bean
     public ConnectionFactory rabbitConnectionFactory() {
-        // TODO: 05/06/2021 maybe extend the connection factory for a builder implementation
         // todo check if you need to provide, connection factory with beans, or it will discover it automatically
         ConnectionFactory connectionFactory = new ConnectionFactory();
         connectionFactory.setHost(host);

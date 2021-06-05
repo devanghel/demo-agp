@@ -5,8 +5,6 @@ import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.encrypt.Encryptors;
 
-import java.util.Objects;
-
 public class CustomRouterBuilder extends RouteBuilder {
 
     private String body;
@@ -51,7 +49,9 @@ I prefer to not use default values as I think it's a security concern once someo
         from(args+ "?period=" + fileUpdatePeriod)
                 .routeId(routeId)
                 .setBody().constant(body)
-                .onCompletion().log("Message sent successfully");
+                .onCompletion().log("Message sent successfully")
+                .to("rabbitmq:testExchange?autoDelete=false&declare=false&connectionFactory=#rabbitConnectionFactory");
+
         // TODO: 05/06/2021 add error and debug to the log only in debug mode, prod will go to kibana
 
     }
