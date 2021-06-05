@@ -4,6 +4,11 @@ import org.apache.camel.builder.RouteBuilder;
 
 public class RabbitMqProducerRoute extends RouteBuilder {
 
+    private Long period;
+    private String body;
+    private String
+
+
     @Override
     public void configure() {
 
