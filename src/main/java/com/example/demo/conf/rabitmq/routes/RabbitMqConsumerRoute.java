@@ -8,9 +8,9 @@ public class RabbitMqConsumerRoute extends RouteBuilder {
 
     @Override
     public void configure() {
-
         from("rabbitmq:testExchange?queue=testQueue&autoDelete=false&declare=false&connectionFactory=#rabbitConnectionFactory" )
-                .routeId("RabbitMqConsumer" )
+                .routeId("ZU")
+                .routeId("AQ")
                 .log("Received body: ${body}" );
     }
 }

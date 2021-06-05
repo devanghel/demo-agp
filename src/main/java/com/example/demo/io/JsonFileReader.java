@@ -8,14 +8,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -34,22 +34,16 @@ public class JsonFileReader implements FileReader {
     @Value("${io.thread.num}")
     private int ioThreadNum;
 
-    private ExecutorService fixedThreadPool = Executors.newFixedThreadPool(ioThreadNum);
+    private final ExecutorService fixedThreadPool = Executors.newFixedThreadPool(ioThreadNum);
 
     @Override
     @SneakyThrows
-    public <T> List<T> readMultipleEntries() throws IOException {
+    public <T> Optional<List<Optional<T>>> readMultipleEntries() {
         if (hasMultipleEntries()) {
             // TODO: 03/06/2021 implement login for .json type file parsing, and validation
-            // TODO: 05/06/2021 push to broker
-            objectMapper.readValue(Paths.get(fileFolder).toFile(), List.class).stream()
-                    .forEach(it -> fixedThreadPool.submit(() -> {
-                        rabbitMqProducerRoute
-                                .setRouteId(((Bid)it).getTy());
-                        rabbitMqProducerRoute.setRouteId("kekRouteId");
-                        rabbitMqProducerRoute.setBody(it.toString());
-                    }));
-            return rabbitMqProducerRoute;
+            objectMapper.readValue(Paths.get(fileFolder).toFile(), List.class)
+                    .forEach(this::sendMessageInANewThread);
+            return Optional.empty();
         } else {
             throw new ObjectTypeDidNotMatchException(ObjectType.MULTIPLE_ENTRIES);
         }
@@ -57,12 +51,26 @@ public class JsonFileReader implements FileReader {
 
     @Override
     @SneakyThrows
-    public <T> T readSingleEntry() throws IOException {
+    public <T> Optional<Object> readSingleEntry() {
         if (!hasMultipleEntries()) {
-            return (T) objectMapper.readValue(Paths.get(fileFolder).toFile(), Object.class);
+            sendMessageInANewThread(objectMapper.readValue(Paths.get(fileFolder).toFile(), Object.class));
+
+            return Optional.empty();
         } else {
             throw new ObjectTypeDidNotMatchException(ObjectType.SINGLE_ENTRY);
         }
+    }
+
+    @SneakyThrows
+    private void kek() {
+        objectMapper.readValue(Paths.get(fileFolder).toFile(), List.class)
+                .forEach(this::sendMessageInANewThread);
+    }
+
+    private <T> void sendMessageInANewThread(T it) {
+        fixedThreadPool.submit(() -> {
+            rabbitMqProducerRoute.setBody(((Bid) it).getPl());
+        });
     }
 
     @Override

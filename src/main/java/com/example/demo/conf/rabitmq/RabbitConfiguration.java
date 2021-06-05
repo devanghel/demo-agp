@@ -10,12 +10,6 @@ import org.springframework.context.annotation.Scope;
 @Configuration
 public class RabbitConfiguration {
 
-    @Value("${rabbit.exchange.topic}")
-    private String exchangeTopicName;
-    @Value("${rabbit.queue.name}")
-    private String queueName;
-    @Value("${rabbit.routing.key}")
-    private String routingKey;
     @Value("${rabbit.user}")
     private String user;
     @Value("${rabbit.pass}")

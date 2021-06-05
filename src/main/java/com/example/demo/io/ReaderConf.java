@@ -1,5 +1,6 @@
-package com.example.demo;
+package com.example.demo.io;
 
+import com.example.demo.conf.rabitmq.routes.RabbitMqProducerRoute;
 import com.example.demo.io.FileReader;
 import com.example.demo.io.JsonFileReader;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,7 +11,7 @@ public class ReaderConf {
 
     @Bean
     @Scope(scopeName = "singletone")
-    public FileReader fileReader(ObjectMapper objectMapper) {
-        return new JsonFileReader(objectMapper);
+    public FileReader fileReader(RabbitMqProducerRoute rabbitMqProducerRoute, ObjectMapper objectMapper) {
+        return new JsonFileReader(rabbitMqProducerRoute, objectMapper);
     }
 }
