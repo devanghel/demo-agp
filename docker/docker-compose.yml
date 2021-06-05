@@ -4,6 +4,18 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      RABBIT_USER: guest
+      RABBIT_PASS: user
+      IN_FOLDER_LOCATION : ../../../infolder
+      ARC_FOLDER_LOCATION : ../../../arcfolder
+      RABBIT_HOST : "rabbitmq"
+      RABBIT_PORT : 5672
+      IN_FOLDER_UPDATE_TIME : 60000
+      IN_FOLDER_MAX_UPDATE_TIME : 60000
+      RABBIT_QUEUES : "AQ,ZU"
+      TLAS : "z-fRqKUhqsh%&bCAc"
+      DRSAP : "?2Cj%DdqeDteeVZeT?6"
   rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: 'rabbitmq'
@@ -13,4 +25,3 @@ services:
     volumes:
       - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
       - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmqfish
-      -
