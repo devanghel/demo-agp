@@ -1,9 +1,11 @@
 package com.example.demo.conf.rabitmq;
 
+import com.example.demo.conf.rabitmq.routes.RabbitMqProducerRoute;
 import com.rabbitmq.client.ConnectionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 
 @Configuration
 public class RabbitConfiguration {
@@ -33,5 +35,11 @@ public class RabbitConfiguration {
         connectionFactory.setUsername(user);
         connectionFactory.setPassword(pass);
         return connectionFactory;
+    }
+
+    @Bean
+    @Scope(scopeName = "singleton")
+    public RabbitMqProducerRoute getRabbitMqProducerRoute() {
+        return new RabbitMqProducerRoute();
     }
 }

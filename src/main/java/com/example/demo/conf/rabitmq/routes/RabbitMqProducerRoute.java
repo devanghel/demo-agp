@@ -1,13 +1,19 @@
 package com.example.demo.conf.rabitmq.routes;
 
+import lombok.Builder;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.stereotype.Service;
 
-@Service
+
 public class RabbitMqProducerRoute extends RouteBuilder {
+
+    public static RabbitMqProducerRoute withBody(String body) {
+        RabbitMqProducerRoute rabbitMqProducerRoute = new RabbitMqProducerRoute();
+        this.body = body;
+        return rabbitMqProducerRoute;
+    }
     /*
     I prefer to not use default values as I think it's a security concern once someone cracks the obfuscation
      */
@@ -27,7 +33,7 @@ public class RabbitMqProducerRoute extends RouteBuilder {
     }
 
     public String getBody() {
-        throw new RuntimeException("");
+        throw new RuntimeException();
     }
 
     public long getFileUpdatePeriod() {

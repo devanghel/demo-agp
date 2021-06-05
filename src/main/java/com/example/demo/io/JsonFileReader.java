@@ -1,5 +1,6 @@
 package com.example.demo.io;
 
+import com.example.demo.conf.rabitmq.routes.RabbitMqProducerRoute;
 import com.example.demo.exception.ObjectType;
 import com.example.demo.exception.ObjectTypeDidNotMatchException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,13 +16,13 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 
-@Component
 @Slf4j
 @RequiredArgsConstructor
 public class JsonFileReader implements FileReader {
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    private final RabbitMqProducerRoute rabbitMqProducerRoute;
+
+    private final ObjectMapper objectMapper;
 
     @Value("${file.folder.path}")
     private String fileFolder;
@@ -33,7 +34,9 @@ public class JsonFileReader implements FileReader {
     public <T> List<T> readMultipleEntries() throws IOException {
         if (hasMultipleEntries()) {
             // TODO: 03/06/2021 implement login for .json type file parsing, and validation
-            return objectMapper.readValue(Paths.get(fileFolder).toFile(), List.class);
+            // TODO: 05/06/2021 push to broker
+
+            return rabbitMqProducerRoute.simple().body(objectMapper.readValue(Paths.get(fileFolder).toFile(), List.class));
         } else {
             throw new ObjectTypeDidNotMatchException(ObjectType.MULTIPLE_ENTRIES);
         }
