@@ -19,16 +19,16 @@ public class CustomProducerRouterBuilder extends RouteBuilder {
     /*
 I prefer to not use default values as I think it's a security concern once someone cracks the obfuscation
  */
-    @Value("${file.update.period}")
+    @Value("${IN_FOLDER_UPDATE_TIME}")
     private Long fileUpdatePeriod;
 
-    @Value("${tlas}")
+    @Value("${TLAS}")
     private String tlas;
 
-    @Value("${drsap}")
+    @Value("${DRSAP}")
     private String drsap;
 
-    @Value("${file.max.update.period}")
+    @Value("${IN_FOLDER_MAX_UPDATE_TIME}")
     private Long maxUpdatePeriod;
 
     @SneakyThrows

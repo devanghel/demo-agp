@@ -10,13 +10,13 @@ import org.springframework.context.annotation.Scope;
 @Configuration
 public class RabbitConfiguration {
 
-    @Value("${rabbit.user}")
+    @Value("${RABBIT_USER}")
     private String user;
-    @Value("${rabbit.pass}")
+    @Value("${RABBIT_PASS}")
     private String pass;
-    @Value("${rabbit.host}")
+    @Value("${RABBIT_HOST}")
     private String host;
-    @Value("${rabbit.port}")
+    @Value("${RABBIT_PORT}")
     private int port;
 
     @Bean

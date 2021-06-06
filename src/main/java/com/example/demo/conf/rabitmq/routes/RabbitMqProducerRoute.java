@@ -3,7 +3,7 @@ package com.example.demo.conf.rabitmq.routes;
 import org.springframework.beans.factory.annotation.Value;
 
 public final class RabbitMqProducerRoute extends CustomProducerRouterBuilder {
-    @Value("${rabbit.queues}")
+    @Value("${RABBIT_QUEUES}")
     private String[] queues;
     @Override
     public void setBody(String body) {
