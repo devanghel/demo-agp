@@ -12,7 +12,7 @@ public class Bid {
     private String pl;
 
 //    Log the bid id(id), timestamp(ts), queue “name”( ty), and payload (decoded from Base64 pl) when the queueing is completed.
-// TODO: 06/06/2021 use placeholders for string concatenation
+// TODO: 06/06/2021 use placeholders for string concatenation : %s
     @Override
     public String toString() {
         return "Bid{" +
